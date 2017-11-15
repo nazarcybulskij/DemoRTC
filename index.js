@@ -21,10 +21,11 @@ app.use(serveStatic('static', {'index': ['index.html']}));
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
-var port = process.env.PORT || 8080;
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+var ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
 // Start Express http server on port 8080
-var webServer = http.createServer(app).listen(port);
+var webServer = http.createServer(app).listen(port,ip_address);
 
 // Start Socket.io so it attaches itself to Express server
 var socketServer = socketIo.listen(webServer, {"log level":1});
@@ -60,6 +61,6 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
 });
 
 //listen on port 8080
-webServer.listen(port, function () {
+webServer.listen(port,ip_address, function () {
     console.log('listening on http://localhost:'+port);
 });
