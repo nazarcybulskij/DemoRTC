@@ -3,8 +3,14 @@ var http    = require("http");              // http server core module
 var express = require("express");           // web framework external module
 var serveStatic = require('serve-static');  // serve static files
 var socketIo = require("socket.io");        // web socket external module
-var fs = require('fs');
 var easyrtc = require("./easyrtc");               // EasyRTC external module
+
+// var fs = require('fs');
+//
+// var options = {
+//     key: fs.readFileSync('server.key'),
+//     cert: fs.readFileSync('server.crt')
+// };
 
 
 // Setup and configure Express http server. Expect a subfolder called "static" to be the web root.
