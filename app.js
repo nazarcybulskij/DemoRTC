@@ -10,8 +10,13 @@ var easyrtc = require("./easyrtc");               // EasyRTC external module
 // Setup and configure Express http server. Expect a subfolder called "static" to be the web root.
 var app = express();
 app.use(serveStatic('static', {'index': ['index.html']}));
+
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 8080;
+
 // Start Express http server on port 8080
-var webServer = http.createServer(app).listen(8080);
+var webServer = http.createServer(app).listen(port);
 
 // Start Socket.io so it attaches itself to Express server
 var socketServer = socketIo.listen(webServer, {"log level":1});
@@ -47,6 +52,6 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
 });
 
 //listen on port 8080
-webServer.listen(8080, function () {
+webServer.listen(port, function () {
     console.log('listening on http://localhost:8080');
 });
